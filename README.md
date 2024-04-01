@@ -42,15 +42,12 @@ This is a [HackerNews](https://news.ycombinator.com/) clone built with [Next.js]
 <div style="display: inline-block">
   <img
     src="./screenshots/mobile/index.png"
-    height="370px"
-    width="180px"
+    width="220px"
     alt="index-mobile"
   />
   <img
     src="./screenshots/mobile/story.png"
-    style="padding-left: 16px"
-    height="370px"
-    width="180px"
+    width="220px"
     alt="story-mobile"
   />
 </div>
@@ -58,15 +55,12 @@ This is a [HackerNews](https://news.ycombinator.com/) clone built with [Next.js]
 <div style="display: inline-block; margin-top: 18px">
   <img
     src="./screenshots/mobile/about.png"
-    height="370px"
-    width="180px"
+    width="220px"
     alt="about-mobile"
   />
   <img
     src="./screenshots/mobile/upvoted.png"
-    style="padding-left: 16px"
-    height="370px"
-    width="180px"
+    width="220px"
     alt="upvoted-mobile"
   />
 </div>
@@ -74,15 +68,12 @@ This is a [HackerNews](https://news.ycombinator.com/) clone built with [Next.js]
 <div style="display: inline-block; margin-top: 18px">
   <img
     src="./screenshots/mobile/comments.png"
-    height="370px"
-    width="180px"
+    width="220px"
     alt="comments-mobile"
   />
   <img
     src="./screenshots/mobile/login.png"
-    style="padding-left: 16px"
-    height="370px"
-    width="180px"
+    width="220px"
     alt="login-mobile"
   />
 </div>
