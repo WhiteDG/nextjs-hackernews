@@ -1,6 +1,10 @@
 # Next.js HackerNews
 This is a [HackerNews](https://news.ycombinator.com/) clone built with [Next.js](https://nextjs.org/) and [shadcn/ui](https://ui.shadcn.com/).
 
+![index](./screenshots/desktop/index.png)
+
+<p style="text-align: center;"><a target="_blank" href="https://nextjs-hackernews-omega.vercel.app">Live Demo</a></p>
+
 ## Features
 
 - Next.js App Router
@@ -8,7 +12,6 @@ This is a [HackerNews](https://news.ycombinator.com/) clone built with [Next.js]
 - Server Actions for mutations
 - Beautifully designed components from shadcn/ui
 - Styling with Tailwind CSS
-
 - Browse stories: Top, Newest, Best, Show, Ask, Jobs.
 - Search for stories.
 - User authentication: Create an account or log in using your Hacker News account to access personalized features.
@@ -18,6 +21,71 @@ This is a [HackerNews](https://news.ycombinator.com/) clone built with [Next.js]
 - View user profile: About, Submitted, Comments, Favorites, Upvoted(private).
 - Responsive design: Friendly to both mobile and desktop.
 - Automatic light/dark mode based on system settings.
+
+## Screenshots
+
+### Desktop
+![index-desktop](./screenshots/desktop/index.png)
+
+![story-desktop](./screenshots/desktop/story.png)
+
+![about-desktop](./screenshots/desktop/about.png)
+
+![upvoted-desktop](./screenshots/desktop/upvoted.png)
+
+![comments-desktop](./screenshots/desktop/comments.png)
+
+![login-desktop](./screenshots/desktop/login.png)
+
+
+### Mobile
+<div style="display: inline-block">
+  <img
+    src="./screenshots/mobile/index.png"
+    height="370px"
+    width="180px"
+    alt="index-mobile"
+  />
+  <img
+    src="./screenshots/mobile/story.png"
+    style="padding-left: 16px"
+    height="370px"
+    width="180px"
+    alt="story-mobile"
+  />
+</div>
+<br />
+<div style="display: inline-block; margin-top: 18px">
+  <img
+    src="./screenshots/mobile/about.png"
+    height="370px"
+    width="180px"
+    alt="about-mobile"
+  />
+  <img
+    src="./screenshots/mobile/upvoted.png"
+    style="padding-left: 16px"
+    height="370px"
+    width="180px"
+    alt="upvoted-mobile"
+  />
+</div>
+<br />
+<div style="display: inline-block; margin-top: 18px">
+  <img
+    src="./screenshots/mobile/comments.png"
+    height="370px"
+    width="180px"
+    alt="comments-mobile"
+  />
+  <img
+    src="./screenshots/mobile/login.png"
+    style="padding-left: 16px"
+    height="370px"
+    width="180px"
+    alt="login-mobile"
+  />
+</div>
 
 ## Running Locally
 
