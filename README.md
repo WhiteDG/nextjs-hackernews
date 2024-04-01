@@ -71,4 +71,4 @@ This project leverages the power of various APIs to provide an enriched user exp
 
 
 ## License
-Licensed under the [MIT license](https://github.com/WhiteDG/nextjs-hackernews/main/LICENSE).
+Licensed under the [MIT license](https://github.com/WhiteDG/nextjs-hackernews/blob/main/LICENSE).
