@@ -50,7 +50,7 @@ export function Header({ user }: { user: HnUser | null }) {
           {user && <UserNav user={user} />}
           {storyNavVisiable && !user && (
             <Button size={"sm"} variant={"outline"} className="ml-1">
-              <Link href={`/login?goto=${goto}`} className="text-sm">
+              <Link rel="noreferrer nofollow" href={`/login?goto=${goto}`} className="text-sm">
                 Login
               </Link>
             </Button>

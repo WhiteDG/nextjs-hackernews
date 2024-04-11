@@ -88,6 +88,7 @@ export default function ReplyForm({
               <PopoverContent className="max-w-48 border-0 bg-primary text-sm font-medium text-primary-foreground">
                 You have to be{" "}
                 <Link
+                  rel="noreferrer nofollow"
                   href={{
                     pathname: "/login",
                     query: { goto: goto },
