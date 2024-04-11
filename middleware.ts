@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/submit", "/login", "/signup"],
+  matcher: ["/signup"],
 }
 
 function isAuthPath(pathname: string) {
