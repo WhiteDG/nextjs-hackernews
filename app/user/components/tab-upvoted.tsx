@@ -45,6 +45,7 @@ async function UpvotedComments({ userId }: { userId: string }) {
       <div className="py-3">
         {moreLink && (
           <Link
+            rel="noreferrer nofollow"
             className="text-sm underline"
             href={`/user/comments?id=${userId}&${moreLink}`}
           >
@@ -69,6 +70,7 @@ async function UpvotedSubmissions({ userId }: { userId: string }) {
       <div className="py-3">
         {moreLink && (
           <Link
+            rel="noreferrer nofollow"
             className="text-sm underline"
             href={`/user/favorites?id=${userId}&${moreLink}`}
           >

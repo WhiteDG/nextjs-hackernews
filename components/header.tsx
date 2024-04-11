@@ -41,7 +41,7 @@ export function Header({ user }: { user: HnUser | null }) {
           <SearchInput />
           {storyNavVisiable && (
             <Button variant={"ghost"} className="hidden size-8">
-              <Link href={"/submit"}>
+              <Link rel="noreferrer nofollow" href={"/submit"}>
                 <Plus size={22}></Plus>
               </Link>
             </Button>

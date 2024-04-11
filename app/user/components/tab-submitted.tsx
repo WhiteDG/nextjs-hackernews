@@ -45,6 +45,7 @@ async function Submitted({
       <div className="py-3">
         {moreLink && (
           <Link
+            rel="noreferrer nofollow"
             className="text-sm underline"
             href={`/user/submitted?id=${userId}&${moreLink}`}
           >

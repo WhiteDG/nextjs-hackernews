@@ -23,6 +23,7 @@ export default function ProfileTab({
           (tab, index) =>
             (tab.public === true || myself) && (
               <Link
+                rel="noreferrer nofollow"
                 href={`/user/${tab.label.toLowerCase()}?id=${userId}`}
                 key={tab.label}
                 className={cn(

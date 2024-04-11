@@ -45,7 +45,7 @@ export default function AuthPage({
           <AuthForm goto={searchParams.goto} creating={page === "signup"} />
           <div className="bg-background text-center text-sm text-muted-foreground">
             {pageInfo.switcherTips}{" "}
-            <Link href={pageInfo.switcherHref} className="underline">
+            <Link rel="nofollow noreferrer" href={pageInfo.switcherHref} className="underline">
               {pageInfo.switcherText}
             </Link>
           </div>

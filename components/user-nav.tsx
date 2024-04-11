@@ -46,18 +46,18 @@ export function UserNav({ user }: { user: HnUser }) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href={`/user?id=${user.id}`}>
+            <Link rel="noreferrer nofollow" href={`/user?id=${user.id}`}>
               <UserRound size={14} className="mr-2" />
               Profile
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href={`/user/submitted?id=${user.id}`}>
+            <Link rel="noreferrer nofollow" href={`/user/submitted?id=${user.id}`}>
               <Send size={14} className="mr-2" /> Submissions
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href={`/user/comments?id=${user.id}`}>
+            <Link rel="noreferrer nofollow" href={`/user/comments?id=${user.id}`}>
               <MessageCircle size={14} className="mr-2" />
               Comments
             </Link>
@@ -69,7 +69,7 @@ export function UserNav({ user }: { user: HnUser }) {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href={`/user/upvoted?id=${user.id}`}>
+            <Link rel="noreferrer nofollow" href={`/user/upvoted?id=${user.id}`}>
               <Triangle size={14} className="mr-2" />
               Upvoted
             </Link>

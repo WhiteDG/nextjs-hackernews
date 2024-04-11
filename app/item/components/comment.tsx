@@ -32,6 +32,7 @@ export default function Comment({
       <div className="flex flex-row justify-start space-x-1 text-sm text-muted-foreground">
         <Vote storyId={comment.id} state={"visiable"} />{" "}
         <Link
+          rel="nofollow noreferrer"
           className="hover:underline"
           href={{
             pathname: "/user",
@@ -49,7 +50,7 @@ export default function Comment({
           </Badge>
         )}
         •
-        <Link href={{ pathname: "/item", query: { id: comment.id } }}>
+        <Link rel="nofollow noreferrer" href={{ pathname: "/item", query: { id: comment.id } }}>
           {timeAgo(comment.time)} ago
         </Link>
       </div>

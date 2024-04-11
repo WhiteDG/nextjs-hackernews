@@ -37,6 +37,7 @@ export default function FavoritesTab({ userId }: { userId?: string | null }) {
           )}
         >
           <Link
+            rel="noreferrer nofollow"
             href={{
               pathname: pathname,
               query: { id: userId, type: example.label.toLowerCase() },

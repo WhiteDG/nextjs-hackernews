@@ -32,7 +32,7 @@ export default function Thread({ comment }: { comment: HnWebThread }) {
 
       <div>
         <div className="flex flex-row flex-wrap items-center justify-start gap-x-1 text-sm text-muted-foreground">
-          <Link className="hover:underline" href={`/user?id=${comment.userId}`}>
+          <Link rel="noreferrer nofollow" className="hover:underline" href={`/user?id=${comment.userId}`}>
             {comment.userId}
           </Link>
           <span>•</span>
@@ -40,7 +40,7 @@ export default function Thread({ comment }: { comment: HnWebThread }) {
           {comment.onStory && (
             <>
               <span>•</span>
-              <Link href={comment.storyLink || ""} className="hover:underline">
+              <Link rel="noreferrer nofollow" href={comment.storyLink || ""} className="hover:underline">
                 on: {comment.onStory}
               </Link>
             </>

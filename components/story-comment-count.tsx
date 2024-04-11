@@ -13,7 +13,7 @@ export default function StoryCommentCount({
   return (
     <div className="flex items-center justify-center truncate hover:text-primary">
       <MessageCircleIcon size={12} className="mr-0.5" />
-      <Link href={`/item?id=${storyId}`}>
+      <Link rel="noreferrer nofollow" href={`/item?id=${storyId}`}>
         {typeof count === "string"
           ? count
           : count == 0

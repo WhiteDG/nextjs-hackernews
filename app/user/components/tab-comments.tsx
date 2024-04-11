@@ -32,6 +32,7 @@ async function Threads({ userId, next }: { userId: string; next: number }) {
       <div className="py-3">
         {moreLink && (
           <Link
+            rel="noreferrer nofollow"
             className="text-sm underline"
             href={`/user/comments?id=${userId}&${moreLink}`}
           >

@@ -37,6 +37,7 @@ export default function ReplyDialog({ comment }: { comment: HnComment }) {
           <DialogTitle>
             Reply to{" "}
             <Link
+              rel="noreferrer nofollow"
               href={{
                 pathname: "/user",
                 query: { id: comment.by },
