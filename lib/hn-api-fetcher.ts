@@ -5,7 +5,7 @@ import { HnItem, HnStoryType, HnUser } from "./hn-types"
 async function fetchData(type: string) {
   const res = await fetch(getHnApiUrl(`${type}.json`), {
     next: {
-      revalidate: 10,
+      revalidate: 120,
     },
   })
   if (res.status !== 200) {

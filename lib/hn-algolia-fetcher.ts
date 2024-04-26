@@ -25,7 +25,11 @@ export const search = async ({
   const url = getAlgoliaApiUrl(
     `/${sort === "byDate" ? "search_by_date" : "search"}?${queryParams.toString()}`
   )
-  const resp = await fetch(url)
+  const resp = await fetch(url, {
+    next: {
+      revalidate: 1800,
+    },
+  })
   const json = await resp.json()
   if (json && json.hits) {
     const searchItemList = json.hits.map((item: any) => {

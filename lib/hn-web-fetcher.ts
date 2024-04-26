@@ -17,7 +17,7 @@ const getHtml = async (url: string) => {
   const response = await fetch(url, {
     headers: getUserHeaders(),
     next: {
-      revalidate: 5,
+      revalidate: 120,
     },
   })
   return await response.text()
@@ -107,7 +107,7 @@ export const getProfile = async (acct?: string, userCookieVal?: string) => {
       const response = await fetch(getHnWebUrl(`/user?id=${userId}`), {
         headers: headers,
         next: {
-          revalidate: 5,
+          revalidate: 120,
         },
       })
       const html = await response.text()
