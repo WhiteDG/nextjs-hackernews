@@ -56,11 +56,12 @@ export function safeUser(val: HnUser) {
 }
 
 export async function fetchStories(ids: number[]) {
-  return (await Promise.all(
+  const stories = (await Promise.all(
     ids.map(async (itemId) => {
       return await fetchItem(itemId)
     })
   )) as HnItem[]
+  return stories.filter((item) => item !== null)
 }
 
 export function fetchComments(ids: number[]) {
