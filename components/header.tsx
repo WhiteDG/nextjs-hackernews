@@ -6,15 +6,17 @@ import { usePathname } from "next/navigation"
 import { useGoto } from "@/hooks"
 import { Menu, Plus, X } from "lucide-react"
 
-import { showStoryNav } from "@/config/conf"
+import { showStoryNav, siteConf } from "@/config/conf"
 import { HnUser } from "@/lib/hn-types"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { DesktopNav } from "@/components/desktop-nav"
 import Logo from "@/components/logo"
 import MobileNav from "@/components/mobile-nav"
 import { ModeToggle } from "@/components/mode-toggle"
 import SearchInput from "@/components/search-input"
 import { UserNav } from "@/components/user-nav"
+import { Icons } from "./icons"
+import { cn } from "@/lib/utils"
 
 export function Header({ user }: { user: HnUser | null }) {
   const pathname = usePathname()
@@ -46,6 +48,23 @@ export function Header({ user }: { user: HnUser | null }) {
               </Link>
             </Button>
           )}
+          <Link
+            href={siteConf.links.github}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div
+              className={cn(
+                buttonVariants({
+                  variant: "ghost",
+                }),
+                "size-8 px-0"
+              )}
+            >
+              <Icons.GitHub className="size-5" />
+              <span className="sr-only">GitHub</span>
+            </div>
+          </Link>
           <ModeToggle />
           {user && <UserNav user={user} />}
           {storyNavVisiable && !user && (
