@@ -6,8 +6,8 @@ import { decrypt, encrypt } from "@/lib/utils"
 
 export const COOKIE_NAME_SESSION = "hn_session"
 
-export const getCurrentUserId = () => {
-  const session = getSession()
+export const getCurrentUserId = async () => {
+  const session = await getSession()
   if (!session) {
     return
   }
@@ -26,20 +26,20 @@ const parseAcct = (acctCookieVal: string) => {
   return { acct, pw }
 }
 
-export const getAcct = () => {
-  const session = getSession()
+export const getAcct = async () => {
+  const session = await getSession()
   if (!session) {
     return
   }
   return { acct: session.acct, pw: session.pw }
 }
 
-export const isLogin = () => {
-  return getCurrentUserId() != null
+export const isLogin = async () => {
+  return (await getCurrentUserId()) != null
 }
 
-export const destorySession = () => {
-  cookies().delete(COOKIE_NAME_SESSION)
+export const destorySession = async () => {
+  ;(await cookies()).delete(COOKIE_NAME_SESSION)
 }
 
 export const parseSession = (sessionValue: string) => {
@@ -50,8 +50,8 @@ export const parseSession = (sessionValue: string) => {
   return { userCookieVal, authCode, ...acctPw }
 }
 
-export const getSession = () => {
-  const sessionValue = cookies().get(COOKIE_NAME_SESSION)?.value
+export const getSession = async () => {
+  const sessionValue = (await cookies()).get(COOKIE_NAME_SESSION)?.value
   if (!sessionValue) {
     return
   }
@@ -73,6 +73,6 @@ export const createSession = async (
     userCookie.name = COOKIE_NAME_SESSION
     userCookie.value = val
     userCookie.secure = process.env.NODE_ENV === "production"
-    cookies().set(userCookie)
+    ;(await cookies()).set(userCookie)
   }
 }

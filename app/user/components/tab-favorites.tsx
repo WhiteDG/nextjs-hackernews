@@ -63,7 +63,7 @@ async function FavoriteComments({ userId }: { userId: string }) {
 
 async function FavoriteSubmissions({ userId }: { userId: string }) {
   const { storyList, moreLink } = await getFavoriteSubmissions(userId)
-  const loginUserId = getCurrentUserId()
+  const loginUserId = await getCurrentUserId()
   return (
     <div>
       {storyList.map((story, i) => (

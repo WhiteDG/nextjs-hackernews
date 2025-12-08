@@ -15,7 +15,7 @@ import { getCurrentUserId, getSession } from "./session"
 
 const getHtml = async (url: string) => {
   const response = await fetch(url, {
-    headers: getUserHeaders(),
+    headers: await getUserHeaders(),
     next: {
       revalidate: 120,
     },
@@ -36,9 +36,9 @@ const postForm = async (url: string, data: string | URLSearchParams) => {
   })
 }
 
-function getUserHeaders() {
+async function getUserHeaders() {
   const headers: [string, string][] = []
-  const session = getSession()
+  const session = await getSession()
   if (session?.userCookieVal) {
     headers.push(["Cookie", `user=${session.userCookieVal}`])
   }
@@ -85,21 +85,21 @@ export const login = async ({
 }
 
 export const logout = async () => {
-  const session = getSession()
+  const session = await getSession()
   if (session?.authCode) {
     const logoutResp = await fetch(
       getHnWebUrl(`/logout?auth=${session.authCode}`),
       {
-        headers: getUserHeaders(),
+        headers: await getUserHeaders(),
       }
     )
   }
 }
 
 export const getProfile = async (acct?: string, userCookieVal?: string) => {
-  const userId = acct || getCurrentUserId()
+  const userId = acct || await getCurrentUserId()
   if (userId) {
-    const headers = getUserHeaders()
+    const headers = await getUserHeaders()
     if (userCookieVal) {
       headers.push(["Cookie", `user=${userCookieVal}`])
     }
@@ -142,7 +142,7 @@ export const fave = async ({
   const faveResp = await postForm(getHnWebUrl("fave"), formData)
 }
 
-export const vote = ({
+export const vote = async ({
   acct,
   pw,
   id,

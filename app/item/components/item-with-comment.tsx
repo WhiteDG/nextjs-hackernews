@@ -30,6 +30,7 @@ export default async function ItemWithComment({
   if (!story) {
     notFound()
   }
+  const logined = await isLogin()
   return (
     <div className="flex flex-col justify-start space-y-3">
       <div>
@@ -53,7 +54,7 @@ export default async function ItemWithComment({
         <HtmlText innerHtml={story.text} />
       </div>
       {replyableStroy(story) && (
-        <ReplyForm parentId={story?.id} logined={isLogin()} />
+        <ReplyForm parentId={story?.id} logined={logined} />
       )}
       <Separator orientation="horizontal" className="my-2" />
       {story.descendants > 0 && (

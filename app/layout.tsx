@@ -39,11 +39,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const userId = getCurrentUserId()
+  const userId = await getCurrentUserId()
   const user = userId ? await fetchUser(userId) : null
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",

@@ -70,10 +70,10 @@ export const logoutAction = async (formData: FormData) => {
 }
 
 export const faveAction = async (id: number, faved: boolean) => {
-  const acctPw = getAcct()
+  const acctPw = await getAcct()
   if (acctPw && acctPw.acct && acctPw.pw) {
     try {
-      fave({
+      await fave({
         ...acctPw,
         id,
         fave: faved,
@@ -103,10 +103,10 @@ export const replyAction = async ({
   parent: number
   text: string
 }) => {
-  const acctPw = getAcct()
+  const acctPw = await getAcct()
   if (acctPw && acctPw.acct && acctPw.pw) {
     try {
-      reply({
+      await reply({
         ...acctPw,
         parent,
         text,
@@ -123,10 +123,10 @@ export const replyAction = async ({
 }
 
 export const voteAction = async (id: number, how: VoteStatus) => {
-  const acctPw = getAcct()
+  const acctPw = await getAcct()
   if (acctPw && acctPw.acct && acctPw.pw) {
     try {
-      vote({
+      await vote({
         ...acctPw,
         id,
         how,

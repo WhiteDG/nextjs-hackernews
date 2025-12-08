@@ -17,37 +17,39 @@ import TabSubmitted from "../components/tab-submitted"
 import TabUpvoted from "../components/tab-upvoted"
 
 type Props = {
-  params: { tab: string }
-  searchParams: {
+  params: Promise<{ tab: string }>
+  searchParams: Promise<{
     id: string
     next: number
     n: number
     type: string
-  }
+  }>
 }
 
 export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const userId = searchParams.id
-  const tab = params.tab
+  const { tab } = await params
+  const { id } = await searchParams
   return {
-    title: tab === "about" ? `Profile: ${userId}` : `${userId}'s ${tab}`,
+    title: tab === "about" ? `Profile: ${id}` : `${id}'s ${tab}`,
   }
 }
 
 export default async function TabPage({ params, searchParams }: Props) {
-  const user = await fetchUser(searchParams.id)
+  const { tab } = await params
+  const { id, next, n, type } = await searchParams
+  const user = await fetchUser(id)
   if (!user) {
     notFound()
   }
-  const myUserId = getCurrentUserId()
+  const myUserId = await getCurrentUserId()
   const myself = myUserId === user.id
   const myselfTab = profileTabs
     .filter((item) => item.public === false)
     .map((item) => item.label.toLowerCase())
-    .includes(params.tab)
+    .includes(tab)
   if (myselfTab && !myself) {
     redirect(`/user/about?id=${user.id}`)
   }
@@ -56,22 +58,22 @@ export default async function TabPage({ params, searchParams }: Props) {
       <UserInfo user={user} />
       <Separator orientation="horizontal" />
       <ProfileTab userId={user.id} myself={myUserId === user.id} />
-      {params.tab === "about" && <TabAbout content={user?.about} />}
-      {params.tab === "submitted" && (
+      {tab === "about" && <TabAbout content={user?.about} />}
+      {tab === "submitted" && (
         <TabSubmitted
-          userId={searchParams.id}
-          next={searchParams.next}
-          n={searchParams.n}
+          userId={id}
+          next={next}
+          n={n}
         />
       )}
-      {params.tab === "comments" && (
-        <TabComments userId={searchParams.id} next={searchParams.next} />
+      {tab === "comments" && (
+        <TabComments userId={id} next={next} />
       )}
-      {params.tab === "favorites" && (
-        <TabFavorites userId={searchParams.id} type={searchParams.type} />
+      {tab === "favorites" && (
+        <TabFavorites userId={id} type={type} />
       )}
-      {params.tab === "upvoted" && (
-        <TabUpvoted userId={searchParams.id} type={searchParams.type} />
+      {tab === "upvoted" && (
+        <TabUpvoted userId={id} type={type} />
       )}
     </div>
   )

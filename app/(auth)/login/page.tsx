@@ -8,10 +8,11 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default function Page({
+export default async function Page({
   searchParams,
 }: {
-  searchParams: { goto?: string }
+  searchParams: Promise<{ goto?: string }>
 }) {
-  return <AuthPage page={"login"} searchParams={searchParams} />
+  const { goto } = await searchParams
+  return <AuthPage page={"login"} searchParams={{ goto }} />
 }

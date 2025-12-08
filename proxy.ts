@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server"
 import { getProfile } from "@/lib/hn-web-fetcher"
 import { COOKIE_NAME_SESSION, parseSession } from "@/lib/session"
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl
   let sessionValue = request.cookies.get(COOKIE_NAME_SESSION)?.value
   const liveSession = await validateSession(sessionValue)

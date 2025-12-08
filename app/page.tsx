@@ -1,16 +1,17 @@
 import { HnStoryType } from "@/lib/hn-types"
 import TypePage from "@/app/[type]/components/type-page"
 
-export default function Page({
+export default async function Page({
   searchParams,
 }: {
-  searchParams: { page: number }
+  searchParams: Promise<{ page: number }>
 }) {
+  const params = await searchParams
   return (
     <TypePage
       pathname={""}
       storyType={HnStoryType.topstories}
-      currentPage={searchParams.page || 1}
+      currentPage={params.page || 1}
     />
   )
 }
