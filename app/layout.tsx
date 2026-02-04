@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 
@@ -58,9 +59,11 @@ export default async function RootLayout({
         >
           <CurrentUserProvider currentUser={user}>
             <div className="relative flex min-h-screen flex-col items-center bg-background">
-              <Header user={user} />
+              <Suspense fallback={<div className="h-14 w-full" />}>
+                <Header user={user} />
+              </Suspense>
               <main className="container flex flex-1 flex-col py-3 md:w-1/2">
-                {children}
+                <Suspense fallback={<div className="flex-1" />}>{children}</Suspense>
               </main>
               <Footer />
             </div>

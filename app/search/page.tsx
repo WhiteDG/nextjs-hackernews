@@ -7,7 +7,7 @@ import ItemList from "@/components/item-list"
 import Loading from "@/components/loading"
 
 type Props = {
-  searchParams: Promise<{ query?: string; sort?: string; page?: number }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 export async function generateMetadata(
@@ -15,23 +15,27 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { query } = await searchParams
+  const queryParam = Array.isArray(query) ? query[0] : query
   return {
-    title: `Search: ${query}`,
+    title: `Search: ${queryParam || ""}`,
   }
 }
 
 export default async function Page({ searchParams }: Props) {
   const { query, sort, page: pageParam } = await searchParams
-  if (!query) {
+  const queryParam = Array.isArray(query) ? query[0] : query
+  const sortParam = Array.isArray(sort) ? sort[0] : sort
+  const pageValue = Array.isArray(pageParam) ? pageParam[0] : pageParam
+  if (!queryParam) {
     notFound()
   }
-  const page = pageParam || 1
+  const page = Number(pageValue) || 1
   const pageSize = 30
   return (
-    <Suspense key={`${query}_${page}_${pageSize}`} fallback={<Loading />}>
+    <Suspense key={`${queryParam}_${page}_${pageSize}`} fallback={<Loading />}>
       <SearchResult
-        query={query}
-        sort={sort}
+        query={queryParam}
+        sort={sortParam}
         page={page}
         pageSize={pageSize}
       />
@@ -58,10 +62,14 @@ async function SearchResult({
     sort,
   })
 
+  const params = new URLSearchParams()
+  params.set("query", query)
+  if (sort) {
+    params.set("sort", sort)
+  }
+  params.set("page", (page + 1).toString())
   const moreLink =
-    searchItemList.length < pageSize
-      ? ""
-      : `search?query=${query}&page=${+page + 1}`
+    searchItemList.length < pageSize ? "" : `/search?${params.toString()}`
   return (
     <ItemList
       stories={searchItemList}

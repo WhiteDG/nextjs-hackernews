@@ -45,7 +45,7 @@ export default function Story({
         <div className="pl-1">
           <Link
             className={cn(data.dead ? "text-muted-foreground" : "")}
-            href={data.dead ? "" : data.url || `item?id=${data.id}`}
+            href={data.dead ? "" : data.url || `/item?id=${data.id}`}
             rel="noopener noreferrer nofollow"
             target={data.url ? "_blank" : "_self"}
           >
@@ -79,3 +79,4 @@ export default function Story({
     </div>
   )
 }
+

@@ -11,10 +11,11 @@ export default function SearchInput() {
   const { replace, push } = useRouter()
   const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      // @ts-expect-error
-      const val = event.target.value
+      const val = (event.target as HTMLInputElement).value
       if (val) {
-        const target = `/search?query=${val}`
+        const params = new URLSearchParams()
+        params.set("query", val)
+        const target = `/search?${params.toString()}`
         if (pathname === "/search") {
           replace(target)
         } else {

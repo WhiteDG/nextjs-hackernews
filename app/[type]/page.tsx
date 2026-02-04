@@ -10,7 +10,7 @@ type Props = {
 }
 
 export async function generateMetadata(
-  { params, searchParams }: Props,
+  { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { type } = await params
@@ -22,7 +22,8 @@ export async function generateMetadata(
 export default async function Page({ searchParams, params }: Props) {
   const { page } = await searchParams
   const { type } = await params
-  const currentPage = Number(page) || 1
+  const pageParam = Array.isArray(page) ? page[0] : page
+  const currentPage = Number(pageParam) || 1
   const pathname = type || "top"
   const navItem = storyNavConfig.filter(
     (navItem) => navItem.name.toLowerCase() === pathname

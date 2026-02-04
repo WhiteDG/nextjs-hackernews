@@ -18,12 +18,7 @@ import TabUpvoted from "../components/tab-upvoted"
 
 type Props = {
   params: Promise<{ tab: string }>
-  searchParams: Promise<{
-    id: string
-    next: number
-    n: number
-    type: string
-  }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 export async function generateMetadata(
@@ -32,15 +27,26 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { tab } = await params
   const { id } = await searchParams
+  const idParam = Array.isArray(id) ? id[0] : id
   return {
-    title: tab === "about" ? `Profile: ${id}` : `${id}'s ${tab}`,
+    title: tab === "about" ? `Profile: ${idParam}` : `${idParam}'s ${tab}`,
   }
 }
 
 export default async function TabPage({ params, searchParams }: Props) {
   const { tab } = await params
   const { id, next, n, type } = await searchParams
-  const user = await fetchUser(id)
+  const idParam = Array.isArray(id) ? id[0] : id
+  const nextValue = Array.isArray(next) ? next[0] : next
+  const nValue = Array.isArray(n) ? n[0] : n
+  const typeParam = Array.isArray(type) ? type[0] : type
+  const nextNum = Number(nextValue) || 0
+  const nNum = Number(nValue) || 0
+
+  if (!idParam) {
+    notFound()
+  }
+  const user = await fetchUser(idParam)
   if (!user) {
     notFound()
   }
@@ -60,20 +66,16 @@ export default async function TabPage({ params, searchParams }: Props) {
       <ProfileTab userId={user.id} myself={myUserId === user.id} />
       {tab === "about" && <TabAbout content={user?.about} />}
       {tab === "submitted" && (
-        <TabSubmitted
-          userId={id}
-          next={next}
-          n={n}
-        />
+        <TabSubmitted userId={idParam} next={nextNum} n={nNum} />
       )}
       {tab === "comments" && (
-        <TabComments userId={id} next={next} />
+        <TabComments userId={idParam} next={nextNum} />
       )}
       {tab === "favorites" && (
-        <TabFavorites userId={id} type={type} />
+        <TabFavorites userId={idParam} type={typeParam || "submissions"} />
       )}
       {tab === "upvoted" && (
-        <TabUpvoted userId={id} type={type} />
+        <TabUpvoted userId={idParam} type={typeParam || "submissions"} />
       )}
     </div>
   )

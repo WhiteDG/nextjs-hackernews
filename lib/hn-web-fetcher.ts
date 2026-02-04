@@ -36,6 +36,12 @@ const postForm = async (url: string, data: string | URLSearchParams) => {
   })
 }
 
+const assertOk = (resp: Response, action: string) => {
+  if (resp.status !== 200 && resp.status !== 302) {
+    throw new Error(`${action} failed with status ${resp.status}`)
+  }
+}
+
 async function getUserHeaders() {
   const headers: [string, string][] = []
   const session = await getSession()
@@ -139,7 +145,8 @@ export const fave = async ({
   if (!fave) {
     formData.append("un", "t")
   }
-  const faveResp = await postForm(getHnWebUrl("fave"), formData)
+  const faveResp = await postForm(getHnWebUrl("/fave"), formData)
+  assertOk(faveResp, "fave")
 }
 
 export const vote = async ({
@@ -158,7 +165,8 @@ export const vote = async ({
   formData.append("pw", pw)
   formData.append("id", id.toString())
   formData.append("how", how)
-  const voteResp = postForm(getHnWebUrl("vote"), formData)
+  const voteResp = await postForm(getHnWebUrl("/vote"), formData)
+  assertOk(voteResp, "vote")
 }
 
 export const reply = async ({
@@ -177,7 +185,8 @@ export const reply = async ({
   formData.append("pw", pw)
   formData.append("parent", parent.toString())
   formData.append("text", text)
-  const replyResp = await postForm("comment", formData)
+  const replyResp = await postForm(getHnWebUrl("/comment"), formData)
+  assertOk(replyResp, "reply")
 }
 
 export const getThreads = async (userId: string, next: number) => {
@@ -219,3 +228,7 @@ export const getUpvotedComments = async (userId: string) => {
   const { comments, moreLink } = parseThreads(html)
   return { comments, moreLink }
 }
+
+
+
+

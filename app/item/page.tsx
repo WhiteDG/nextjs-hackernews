@@ -1,5 +1,6 @@
 import { Suspense } from "react"
 import { Metadata, ResolvingMetadata } from "next"
+import { notFound } from "next/navigation"
 
 import { fetchItem } from "@/lib/hn-api-fetcher"
 import Loading from "@/components/loading"
@@ -7,14 +8,19 @@ import Loading from "@/components/loading"
 import ItemWithComment from "./components/item-with-comment"
 
 type Props = {
-  searchParams: Promise<{ id: number }>
+  searchParams: Promise<{ id?: string | string[] }>
 }
 
 export async function generateMetadata(
   { searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const { id: storyId } = await searchParams
+  const { id } = await searchParams
+  const idParam = Array.isArray(id) ? id[0] : id
+  const storyId = Number(idParam)
+  if (!storyId) {
+    return { title: "Comment" }
+  }
   const story = await fetchItem(storyId)
   return {
     title: `${story?.title || "Comment"}`,
@@ -23,9 +29,14 @@ export async function generateMetadata(
 
 export default async function Page({ searchParams }: Props) {
   const { id } = await searchParams
+  const idParam = Array.isArray(id) ? id[0] : id
+  const storyId = Number(idParam)
+  if (!storyId) {
+    notFound()
+  }
   return (
-    <Suspense key={id} fallback={<Loading />}>
-      <ItemWithComment id={id} />
+    <Suspense key={storyId} fallback={<Loading />}>
+      <ItemWithComment id={storyId} />
     </Suspense>
   )
 }
