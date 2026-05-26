@@ -2,8 +2,6 @@ import { Suspense } from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 
-import { fetchUser } from "@/lib/hn-api-fetcher"
-import { getCurrentUserId } from "@/lib/session"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
 import Footer from "@/components/footer"
@@ -35,14 +33,11 @@ export const metadata: Metadata = {
   creator: siteConf.authors[0].name,
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const userId = await getCurrentUserId()
-  const user = userId ? await fetchUser(userId) : null
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -57,10 +52,10 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <CurrentUserProvider currentUser={user}>
+          <CurrentUserProvider>
             <div className="relative flex min-h-screen flex-col items-center bg-background">
               <Suspense fallback={<div className="h-14 w-full" />}>
-                <Header user={user} />
+                <Header />
               </Suspense>
               <main className="container flex flex-1 flex-col py-3 md:w-1/2">
                 <Suspense fallback={<div className="flex-1" />}>{children}</Suspense>

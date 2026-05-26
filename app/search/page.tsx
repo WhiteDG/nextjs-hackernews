@@ -6,6 +6,8 @@ import { search } from "@/lib/hn-algolia-fetcher"
 import ItemList from "@/components/item-list"
 import Loading from "@/components/loading"
 
+export const revalidate = 1800
+
 type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }

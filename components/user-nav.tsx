@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { usePathname } from "next/navigation"
 import {
   Bookmark,
   LogOut,
@@ -12,6 +11,7 @@ import {
 import { logoutAction } from "@/lib/actions"
 import { HnUser } from "@/lib/hn-types"
 import { formatDate } from "@/lib/time-utils"
+import { clearCurrentUser, useGoto } from "@/hooks"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -25,6 +25,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 export function UserNav({ user }: { user: HnUser }) {
+  const goto = useGoto()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -77,8 +79,8 @@ export function UserNav({ user }: { user: HnUser }) {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <form action={logoutAction}>
-            <input name="goto" hidden defaultValue={usePathname()} />
+          <form action={logoutAction} onSubmit={() => clearCurrentUser()}>
+            <input name="goto" hidden defaultValue={goto} />
             <button type="submit" className="hover:cursor-default">
               <LogOut size={14} className="mr-2 inline" />
               Log out

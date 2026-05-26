@@ -1,6 +1,8 @@
 import { HnStoryType } from "@/lib/hn-types"
 import TypePage from "@/app/[type]/components/type-page"
 
+export const revalidate = 120
+
 export default async function Page({
   searchParams,
 }: {

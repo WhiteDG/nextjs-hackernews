@@ -3,11 +3,10 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useGoto } from "@/hooks"
+import { useCurrentUser, useGoto } from "@/hooks"
 import { Menu, Plus, X } from "lucide-react"
 
 import { showStoryNav, siteConf } from "@/config/conf"
-import { HnUser } from "@/lib/hn-types"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { DesktopNav } from "@/components/desktop-nav"
 import Logo from "@/components/logo"
@@ -18,7 +17,8 @@ import { UserNav } from "@/components/user-nav"
 import { Icons } from "./icons"
 import { cn } from "@/lib/utils"
 
-export function Header({ user }: { user: HnUser | null }) {
+export function Header() {
+  const user = useCurrentUser()
   const pathname = usePathname()
   const goto = useGoto()
   const storyNavVisiable = showStoryNav(pathname)
@@ -66,8 +66,9 @@ export function Header({ user }: { user: HnUser | null }) {
             </div>
           </Link>
           <ModeToggle />
+          {user === undefined && <div className="ml-1 size-8" />}
           {user && <UserNav user={user} />}
-          {storyNavVisiable && !user && (
+          {user === null && storyNavVisiable && (
             <Button size={"sm"} variant={"outline"} className="ml-1">
               <Link rel="noreferrer nofollow" href={`/login?goto=${goto}`} className="text-sm">
                 Login

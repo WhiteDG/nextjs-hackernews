@@ -3,11 +3,7 @@ import { getHnApiUrl } from "@/config/urls"
 import { HnItem, HnStoryType, HnUser } from "./hn-types"
 
 async function fetchData(type: string) {
-  const res = await fetch(getHnApiUrl(`${type}.json`), {
-    next: {
-      revalidate: 120,
-    },
-  })
+  const res = await fetch(getHnApiUrl(`${type}.json`))
   if (res.status !== 200) {
     throw new Error(`Status ${res.status}`)
   }
@@ -64,12 +60,19 @@ export async function fetchStories(ids: number[]) {
   return stories.filter((item) => item !== null)
 }
 
-export function fetchComments(ids: number[]) {
+export function fetchComments(ids: number[], depth = 0, maxDepth = 5) {
   return Promise.all(
     ids.map(async (id) => {
       const val = await fetchData(`item/${id}`)
-      val.comments =
-        val.kids && val.kids.length > 0 ? await fetchComments(val.kids) : []
+      if (depth >= maxDepth && val.kids && val.kids.length > 0) {
+        val.comments = []
+        val.truncated = true
+      } else {
+        val.comments =
+          val.kids && val.kids.length > 0
+            ? await fetchComments(val.kids, depth + 1, maxDepth)
+            : []
+      }
       return safeItem(val)
     })
   )

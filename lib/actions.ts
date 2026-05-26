@@ -14,7 +14,8 @@ const goto = (path: string | FormData) => {
   } else {
     target = path.get("goto")?.toString() || "/"
   }
-  revalidatePath(target.substring(0, target.lastIndexOf("?")))
+  const targetPath = target.split("?")[0] || "/"
+  revalidatePath(targetPath)
   redirect(target)
 }
 
@@ -65,7 +66,7 @@ export const logoutAction = async (formData: FormData) => {
   } catch (error) {
     console.warn("🚀 ~ logoutAction ~ error:", error)
   }
-  destorySession()
+  await destorySession()
   goto(formData)
 }
 

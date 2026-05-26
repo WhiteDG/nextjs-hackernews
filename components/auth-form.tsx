@@ -1,6 +1,6 @@
 "use client"
 
-import { useFormAction } from "@/hooks"
+import { useFormAction, revalidateCurrentUser } from "@/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
 import { useFormStatus } from "react-dom"
@@ -47,9 +47,9 @@ export function AuthForm({
     schema: authFormSchema,
     mode: "onChange",
   })
-  const signinAction = () => {
-    const result = form.handleAction(loginAction)
-    console.log("🚀 ~ signinAction ~ result:", result)
+  const signinAction = async () => {
+    await form.handleAction(loginAction)
+    await revalidateCurrentUser()
   }
   return (
     <Form {...form}>

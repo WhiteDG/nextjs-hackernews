@@ -7,6 +7,8 @@ import Loading from "@/components/loading"
 
 import ItemWithComment from "./components/item-with-comment"
 
+export const revalidate = 300
+
 type Props = {
   searchParams: Promise<{ id?: string | string[] }>
 }

@@ -4,6 +4,8 @@ import { notFound } from "next/navigation"
 import { storyNavConfig } from "@/config/conf"
 import TypePage from "@/app/[type]/components/type-page"
 
+export const revalidate = 120
+
 type Props = {
   params: Promise<{ type: string }>
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>

@@ -79,6 +79,13 @@ export default function Comment({
           </div>
         </div>
       )}
+      {comment.truncated && (
+        <div className="py-1 pl-10 text-xs text-muted-foreground">
+          <Link rel="nofollow noreferrer" href={`https://news.ycombinator.com/item?id=${comment.id}`} target="_blank">
+            View deeper replies on HN
+          </Link>
+        </div>
+      )}
       {replies && replies.length > 0 && (
         <div
           className={cn(

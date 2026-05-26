@@ -31,6 +31,7 @@ export interface HnItem {
   title?: string
   parts?: number[]
   descendants: number
+  truncated?: boolean
 }
 
 export interface HnComment extends HnItem {
