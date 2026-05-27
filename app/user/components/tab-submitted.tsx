@@ -48,6 +48,7 @@ async function Submitted({
             rel="noreferrer nofollow"
             className="text-sm underline"
             href={`/user/submitted?id=${userId}&${moreLink}`}
+            prefetch={false}
           >
             More
           </Link>

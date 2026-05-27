@@ -44,6 +44,7 @@ export default function ReplyDialog({ comment }: { comment: HnComment }) {
               }}
               className="text-muted-foreground underline"
               target="_blank"
+              prefetch={false}
             >
               {comment.by}
             </Link>

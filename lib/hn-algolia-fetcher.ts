@@ -1,4 +1,5 @@
 import { getAlgoliaApiUrl } from "@/config/urls"
+import type { SearchSort } from "@/lib/routes"
 
 import { HnItem, HnItemType } from "./hn-types"
 
@@ -13,7 +14,7 @@ export const search = async ({
   page: number
   pageSize: number
   tags?: string
-  sort?: string
+  sort?: SearchSort
 }) => {
   const queryParams = new URLSearchParams()
   queryParams.append("query", query)

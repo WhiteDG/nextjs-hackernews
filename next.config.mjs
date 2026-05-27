@@ -8,8 +8,32 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/user',
-        destination: '/user/about',
+        source: "/",
+        has: [
+          {
+            type: "query",
+            key: "page",
+            value: "(?<page>.*)",
+          },
+        ],
+        destination: "/top/page/:page",
+        permanent: false,
+      },
+      {
+        source: "/:type(top|new|best|ask|show|jobs)",
+        has: [
+          {
+            type: "query",
+            key: "page",
+            value: "(?<page>.+)",
+          },
+        ],
+        destination: "/:type/page/:page",
+        permanent: false,
+      },
+      {
+        source: "/user",
+        destination: "/user/about",
         permanent: false,
       },
     ]

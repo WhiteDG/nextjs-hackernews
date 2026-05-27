@@ -3,6 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { SearchIcon } from "lucide-react"
 
+import { searchPath } from "@/lib/routes"
 import { Input } from "@/components/ui/input"
 
 export default function SearchInput() {
@@ -13,10 +14,8 @@ export default function SearchInput() {
     if (event.key === "Enter") {
       const val = (event.target as HTMLInputElement).value
       if (val) {
-        const params = new URLSearchParams()
-        params.set("query", val)
-        const target = `/search?${params.toString()}`
-        if (pathname === "/search") {
+        const target = searchPath(val)
+        if (pathname.startsWith("/search")) {
           replace(target)
         } else {
           push(target)
@@ -30,9 +29,23 @@ export default function SearchInput() {
       <Input
         placeholder="Search..."
         className="h-9 pl-8"
-        defaultValue={searchParams.get("query")?.toString()}
+        defaultValue={
+          searchParams.get("query")?.toString() ?? queryFromPath(pathname)
+        }
         onKeyUp={handleKeyUp}
       />
     </div>
   )
+}
+
+function queryFromPath(pathname: string) {
+  const match = pathname.match(/^\/search\/([^/]+)/)
+  if (!match?.[1]) {
+    return ""
+  }
+  try {
+    return decodeURIComponent(match[1])
+  } catch {
+    return match[1]
+  }
 }

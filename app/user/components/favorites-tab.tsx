@@ -42,6 +42,7 @@ export default function FavoritesTab({ userId }: { userId?: string | null }) {
               pathname: pathname,
               query: { id: userId, type: example.label.toLowerCase() },
             }}
+            prefetch={false}
           >
             {example.label}
           </Link>

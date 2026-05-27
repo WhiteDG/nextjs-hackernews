@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { clearCurrentUser, useGoto } from "@/hooks"
 import {
   Bookmark,
   LogOut,
@@ -11,7 +12,6 @@ import {
 import { logoutAction } from "@/lib/actions"
 import { HnUser } from "@/lib/hn-types"
 import { formatDate } from "@/lib/time-utils"
-import { clearCurrentUser, useGoto } from "@/hooks"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -48,30 +48,46 @@ export function UserNav({ user }: { user: HnUser }) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link rel="noreferrer nofollow" href={`/user?id=${user.id}`}>
+            <Link
+              rel="noreferrer nofollow"
+              href={`/user?id=${user.id}`}
+              prefetch={false}
+            >
               <UserRound size={14} className="mr-2" />
               Profile
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link rel="noreferrer nofollow" href={`/user/submitted?id=${user.id}`}>
+            <Link
+              rel="noreferrer nofollow"
+              href={`/user/submitted?id=${user.id}`}
+              prefetch={false}
+            >
               <Send size={14} className="mr-2" /> Submissions
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link rel="noreferrer nofollow" href={`/user/comments?id=${user.id}`}>
+            <Link
+              rel="noreferrer nofollow"
+              href={`/user/comments?id=${user.id}`}
+              prefetch={false}
+            >
               <MessageCircle size={14} className="mr-2" />
               Comments
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link href={`/user/favorites?id=${user.id}`}>
+            <Link href={`/user/favorites?id=${user.id}`} prefetch={false}>
               <Bookmark size={14} className="mr-2" />
               Favorite
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link rel="noreferrer nofollow" href={`/user/upvoted?id=${user.id}`}>
+            <Link
+              rel="noreferrer nofollow"
+              href={`/user/upvoted?id=${user.id}`}
+              prefetch={false}
+            >
               <Triangle size={14} className="mr-2" />
               Upvoted
             </Link>

@@ -25,6 +25,7 @@ export default function ProfileTab({
               <Link
                 rel="noreferrer nofollow"
                 href={`/user/${tab.label.toLowerCase()}?id=${userId}`}
+                prefetch={false}
                 key={tab.label}
                 className={cn(
                   "flex h-7 items-center justify-center rounded-full px-3 text-center text-sm transition-colors hover:text-primary md:px-4",

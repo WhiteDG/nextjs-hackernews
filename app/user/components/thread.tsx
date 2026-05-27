@@ -32,7 +32,12 @@ export default function Thread({ comment }: { comment: HnWebThread }) {
 
       <div>
         <div className="flex flex-row flex-wrap items-center justify-start gap-x-1 text-sm text-muted-foreground">
-          <Link rel="noreferrer nofollow" className="hover:underline" href={`/user?id=${comment.userId}`}>
+          <Link
+            rel="noreferrer nofollow"
+            className="hover:underline"
+            href={`/user?id=${comment.userId}`}
+            prefetch={false}
+          >
             {comment.userId}
           </Link>
           <span>•</span>
@@ -40,7 +45,12 @@ export default function Thread({ comment }: { comment: HnWebThread }) {
           {comment.onStory && (
             <>
               <span>•</span>
-              <Link rel="noreferrer nofollow" href={comment.storyLink || ""} className="hover:underline">
+              <Link
+                rel="noreferrer nofollow"
+                href={comment.storyLink || ""}
+                className="hover:underline"
+                prefetch={false}
+              >
                 on: {comment.onStory}
               </Link>
             </>

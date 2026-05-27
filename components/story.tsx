@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 
 import { getVoteState } from "@/lib/hn-item-utils"
 import { HnWebStory } from "@/lib/hn-web-types"
+import { searchPath } from "@/lib/routes"
 import { cn } from "@/lib/utils"
 import StoryBy from "@/components/story-by"
 import StoryCommentCount from "@/components/story-comment-count"
@@ -45,17 +46,19 @@ export default function Story({
         <div className="pl-1">
           <Link
             className={cn(data.dead ? "text-muted-foreground" : "")}
-            href={data.dead ? "" : data.url || `/item?id=${data.id}`}
+            href={data.dead ? "" : data.url || `/item/${data.id}`}
             rel="noopener noreferrer nofollow"
             target={data.url ? "_blank" : "_self"}
+            prefetch={false}
           >
             {(data.dead ? "[dead] " : "") + data.title}{" "}
           </Link>
           {data.sitestr && (
             <Link
               className="text-sm text-muted-foreground"
-              href={`/search?query=${data.sitestr}&sort=byDate`}
+              href={searchPath(data.sitestr, { sort: "byDate" })}
               rel="noopener noreferrer nofollow"
+              prefetch={false}
             >
               ({data.sitestr})
             </Link>
@@ -79,4 +82,3 @@ export default function Story({
     </div>
   )
 }
-

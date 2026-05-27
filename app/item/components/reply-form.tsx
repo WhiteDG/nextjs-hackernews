@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useFormAction, useGoto } from "@/hooks"
+import { useCurrentUser, useFormAction, useGoto } from "@/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { InfoIcon, Loader2 } from "lucide-react"
 import { useFormStatus } from "react-dom"
@@ -35,7 +35,7 @@ const replyFormSchema = z.object({
 type ReplyFormValues = z.infer<typeof replyFormSchema>
 
 type Props = {
-  logined: boolean
+  logined?: boolean
   text?: string
   position?: "left" | "right"
   parentId: number
@@ -47,6 +47,8 @@ export default function ReplyForm({
   position,
   parentId,
 }: Props) {
+  const currentUser = useCurrentUser()
+  const canReply = logined ?? currentUser != null
   const form = useFormAction<ReplyFormValues>({
     resolver: zodResolver(replyFormSchema),
     defaultValues: { parent: parentId, text: "" },
@@ -79,8 +81,8 @@ export default function ReplyForm({
             position === "right" && "float-right"
           )}
         >
-          <ReplyButton text={text ? text : "Add Comment"} logined={logined} />
-          {!logined && (
+          <ReplyButton text={text ? text : "Add Comment"} logined={canReply} />
+          {!canReply && (
             <Popover>
               <PopoverTrigger>
                 <InfoIcon className="size-4 text-muted-foreground" />

@@ -38,6 +38,7 @@ export default function Comment({
             pathname: "/user",
             query: { id: comment.by },
           }}
+          prefetch={false}
         >
           {comment.by}
         </Link>
@@ -50,7 +51,11 @@ export default function Comment({
           </Badge>
         )}
         •
-        <Link rel="nofollow noreferrer" href={{ pathname: "/item", query: { id: comment.id } }}>
+        <Link
+          rel="nofollow noreferrer"
+          href={`/item/${comment.id}`}
+          prefetch={false}
+        >
           {timeAgo(comment.time)} ago
         </Link>
       </div>
@@ -81,7 +86,11 @@ export default function Comment({
       )}
       {comment.truncated && (
         <div className="py-1 pl-10 text-xs text-muted-foreground">
-          <Link rel="nofollow noreferrer" href={`https://news.ycombinator.com/item?id=${comment.id}`} target="_blank">
+          <Link
+            rel="nofollow noreferrer"
+            href={`https://news.ycombinator.com/item?id=${comment.id}`}
+            target="_blank"
+          >
             View deeper replies on HN
           </Link>
         </div>

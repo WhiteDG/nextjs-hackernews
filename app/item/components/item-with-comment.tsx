@@ -3,7 +3,6 @@ import { notFound } from "next/navigation"
 
 import { fetchItem } from "@/lib/hn-api-fetcher"
 import { commentCount, replyableStroy } from "@/lib/hn-item-utils"
-import { isLogin } from "@/lib/session"
 import { cn } from "@/lib/utils"
 import { Separator } from "@/components/ui/separator"
 import Fave from "@/components/fave"
@@ -30,7 +29,6 @@ export default async function ItemWithComment({
   if (!story) {
     notFound()
   }
-  const logined = await isLogin()
   return (
     <div className="flex flex-col justify-start space-y-3">
       <div>
@@ -53,9 +51,7 @@ export default async function ItemWithComment({
         </div>
         <HtmlText innerHtml={story.text} />
       </div>
-      {replyableStroy(story) && (
-        <ReplyForm parentId={story?.id} logined={logined} />
-      )}
+      {replyableStroy(story) && <ReplyForm parentId={story?.id} />}
       <Separator orientation="horizontal" className="my-2" />
       {story.descendants > 0 && (
         <span className="font-semibold">{commentCount(story.descendants)}</span>

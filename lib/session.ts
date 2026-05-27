@@ -5,6 +5,7 @@ import { getProfile } from "@/lib/hn-web-fetcher"
 import { decrypt, encrypt } from "@/lib/utils"
 
 export const COOKIE_NAME_SESSION = "hn_session"
+export const COOKIE_NAME_LOGIN_MARKER = "hn_logged_in"
 
 export const getCurrentUserId = async () => {
   const session = await getSession()
@@ -39,7 +40,9 @@ export const isLogin = async () => {
 }
 
 export const destorySession = async () => {
-  ;(await cookies()).delete(COOKIE_NAME_SESSION)
+  const cookieStore = await cookies()
+  cookieStore.delete(COOKIE_NAME_SESSION)
+  cookieStore.delete(COOKIE_NAME_LOGIN_MARKER)
 }
 
 export const parseSession = (sessionValue: string) => {
@@ -73,6 +76,14 @@ export const createSession = async (
     userCookie.name = COOKIE_NAME_SESSION
     userCookie.value = val
     userCookie.secure = process.env.NODE_ENV === "production"
-    ;(await cookies()).set(userCookie)
+    const cookieStore = await cookies()
+    cookieStore.set(userCookie)
+    cookieStore.set(COOKIE_NAME_LOGIN_MARKER, "1", {
+      path: userCookie.path || "/",
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      expires: userCookie.expires,
+      maxAge: userCookie.maxAge,
+    })
   }
 }

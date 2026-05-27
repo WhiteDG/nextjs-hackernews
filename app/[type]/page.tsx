@@ -5,10 +5,11 @@ import { storyNavConfig } from "@/config/conf"
 import TypePage from "@/app/[type]/components/type-page"
 
 export const revalidate = 120
+export const dynamic = "force-static"
+export const dynamicParams = true
 
 type Props = {
   params: Promise<{ type: string }>
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 export async function generateMetadata(
@@ -21,11 +22,12 @@ export async function generateMetadata(
   }
 }
 
-export default async function Page({ searchParams, params }: Props) {
-  const { page } = await searchParams
+export function generateStaticParams() {
+  return []
+}
+
+export default async function Page({ params }: Props) {
   const { type } = await params
-  const pageParam = Array.isArray(page) ? page[0] : page
-  const currentPage = Number(pageParam) || 1
   const pathname = type || "top"
   const navItem = storyNavConfig.filter(
     (navItem) => navItem.name.toLowerCase() === pathname
@@ -34,11 +36,5 @@ export default async function Page({ searchParams, params }: Props) {
   if (!storyType) {
     notFound()
   }
-  return (
-    <TypePage
-      pathname={pathname}
-      storyType={storyType}
-      currentPage={currentPage}
-    />
-  )
+  return <TypePage pathname={pathname} storyType={storyType} currentPage={1} />
 }

@@ -19,10 +19,8 @@ export default async function TypeStories({
   const showStoryIds = storyIds.slice(offset, offset + limit)
   const stories = await fetchStories(showStoryIds)
 
-  const searchParams = new URLSearchParams()
-  searchParams.set("page", (+page + 1).toString())
-
-  const moreLink =
-    stories.length < limit ? "" : `/${pathname}?${searchParams.toString()}`
+  const basePath = pathname ? `/${pathname}` : "/top"
+  const hasMore = offset + limit < storyIds.length
+  const moreLink = hasMore ? `${basePath}/page/${page + 1}` : ""
   return <ItemList stories={stories} offset={offset} moreLink={moreLink} />
 }

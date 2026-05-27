@@ -52,6 +52,7 @@ async function FavoriteComments({ userId }: { userId: string }) {
             rel="noreferrer nofollow"
             className="text-sm underline"
             href={`/user/comments?id=${userId}&${moreLink}`}
+            prefetch={false}
           >
             More
           </Link>
@@ -83,6 +84,7 @@ async function FavoriteSubmissions({ userId }: { userId: string }) {
             rel="noreferrer nofollow"
             className="text-sm underline"
             href={`/user/favorites?id=${userId}&${moreLink}`}
+            prefetch={false}
           >
             More
           </Link>

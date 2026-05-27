@@ -2,20 +2,14 @@ import { HnStoryType } from "@/lib/hn-types"
 import TypePage from "@/app/[type]/components/type-page"
 
 export const revalidate = 120
+export const dynamic = "force-static"
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ page?: string | string[] }>
-}) {
-  const params = await searchParams
-  const pageParam = Array.isArray(params.page) ? params.page[0] : params.page
-  const currentPage = Number(pageParam) || 1
+export default async function Page() {
   return (
     <TypePage
-      pathname={""}
+      pathname={"top"}
       storyType={HnStoryType.topstories}
-      currentPage={currentPage}
+      currentPage={1}
     />
   )
 }
